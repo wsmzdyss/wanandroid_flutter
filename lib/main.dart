@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroid_flutter/util/theme_uitl.dart';
 
-import 'ui/home_paget.dart';
+import 'package:wanandroid_flutter/ui/home/home_paget.dart';
 import 'ui/mine_page.dart';
-import 'ui/tree_page.dart';
+import 'package:wanandroid_flutter/ui/tree/tree_page.dart';
 
 void main() => runApp(MyApp());
 
