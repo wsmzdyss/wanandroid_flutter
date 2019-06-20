@@ -16,7 +16,7 @@ class CommonListView extends StatefulWidget {
   final int itemCount;
   final double scrollFromTopOffSet;
   final RefreshCallback onRefresh;
-  final Future<void> Function() onLoadMore;
+  final Future Function() onLoadMore;
 
   @override
   State<StatefulWidget> createState() {
@@ -34,17 +34,20 @@ class _ListViewState extends State<CommonListView> {
   @override
   void initState() {
     _controller.addListener(() {
-      //滚动到底部
-      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        //TODO 此setState不会生效
-        setState(() {
-          _isLoadMore = true;
-        });
-        widget.onLoadMore().then((value) {
+      if (widget.onLoadMore != null) {
+        //滚动到底部
+        if (_controller.position.pixels ==
+            _controller.position.maxScrollExtent) {
+          //TODO 此setState不会生效
           setState(() {
-            _isLoadMore = false;
+            _isLoadMore = true;
           });
-        });
+          widget.onLoadMore().then((res) {
+            setState(() {
+              _isLoadMore = false;
+            });
+          });
+        }
       }
 
       if (_controller.offset < widget.scrollFromTopOffSet && _showToTopBtn) {

@@ -12,11 +12,11 @@ int _selPageIndex = 0;
 const bottomItems = ["首页", "发现", "我的"];
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WanAndroid',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: ThemeUtil.curThemeColor,
       ),
@@ -35,7 +35,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   var _pageItems = [HomeWidget(), TreeWidget(), MineWidget()];
 
   @override
@@ -54,15 +53,38 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(bottomItems[0])),
-          BottomNavigationBarItem(icon: Icon(Icons.subject), title: Text(bottomItems[1])),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text(bottomItems[2])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home), title: Text(bottomItems[0])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.subject), title: Text(bottomItems[1])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), title: Text(bottomItems[2])),
         ],
         currentIndex: _selPageIndex,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
-      body: new IndexedStack(children: _pageItems, index: _selPageIndex),
+      body: IndexedStack(children: _pageItems, index: _selPageIndex),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("小寂寞"),
+              accountEmail: Text("287930303@qq.com"),
+              currentAccountPicture: Icon(Icons.mood, color: Colors.white, size: 40,),
+            ),
+            ListTile(
+              title: Text("关于"),
+              leading: Icon(Icons.error_outline),
+            ),
+            ListTile(
+              title: Text("我的"),
+              leading: Icon(Icons.person),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -71,5 +93,4 @@ class _MyHomePageState extends State<MyHomePage> {
       _selPageIndex = index;
     });
   }
-
 }

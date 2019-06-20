@@ -31,17 +31,17 @@ class TreeContentState extends State<TreeContentWidget> {
         itemCount: _data.length,
         itemWidget: (context, index) => ArticleItemWidget(_data[index], index),
         onRefresh: () async {
-          await getTreeContent();
+          getTreeContent();
         },
         onLoadMore: () async {
-          await getTreeContent(false);
+          getTreeContent(false);
         },
       ),
     );
   }
 
   getTreeContent([bool isRefresh = true]) {
-    _page = isRefresh ? 0 : _page++;
+    _page = isRefresh ? 0 : ++_page;
     ApiService.getTreeArticle(_page, widget.cid).then((res) {
       setState(() {
         if (isRefresh) _data.clear();
